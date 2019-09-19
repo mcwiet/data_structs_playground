@@ -12,10 +12,10 @@ namespace LinkedList {
 		{
 			if (head_ != nullptr) {
 				ListNode* curr = head_;
-				ListNode* next = curr->GetNext();
+				ListNode* next = curr->Next();
 				while (next != nullptr) {
 					curr = next;
-					next = curr->GetNext();
+					next = curr->Next();
 				}
 				tail_ = curr;
 			}
@@ -25,7 +25,7 @@ namespace LinkedList {
 			ListNode* curr = head_;
 			ListNode* next;
 			while (curr != nullptr) {
-				next = curr->GetNext();
+				next = curr->Next();
 				delete curr;
 				curr = next;
 			}

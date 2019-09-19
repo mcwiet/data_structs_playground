@@ -14,11 +14,11 @@ namespace LinkedList {
 			next_( next ),
 			prev_( prev ) {};
 
-		inline const T& GetData() { return data_; }
-		inline void SetData( const T& data ) { data_ = data; }
+		inline const T& Data() { return data_; }
+		inline void Data( const T& data ) { data_ = data; }
 
-		inline DoubleListNode* GetNext() { return next_; }
-		inline void SetNext( DoubleListNode* next ) { next_ = next; }
+		inline DoubleListNode* Next() { return next_; }
+		inline void Next( DoubleListNode* next ) { next_ = next; }
 
 		inline DoubleListNode* GetPrev() { return prev_; }
 		inline void SetPrev( DoubleListNode* prev ) { prev_ = prev; }

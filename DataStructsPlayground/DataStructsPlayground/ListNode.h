@@ -12,11 +12,11 @@ namespace LinkedList {
 			data_( data_ ),
 			next_( next ) {};
 
-		inline const T& GetData() { return data_; }
-		inline void SetData( const T& data ) { data_ = data; }
+		inline const T& Data() { return data_; }
+		inline void Data( const T& data ) { data_ = data; }
 
-		inline ListNode* GetNext() { return next_; }
-		inline void SetNext( ListNode* next ) { next_ = next; }
+		inline ListNode* Next() { return next_; }
+		inline void Next( ListNode* next ) { next_ = next; }
 
 	protected:
 		T data_;

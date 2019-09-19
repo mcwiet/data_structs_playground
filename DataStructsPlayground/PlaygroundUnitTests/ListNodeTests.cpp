@@ -9,31 +9,31 @@ namespace LinkedListTests {
 		LinkedList::ListNode<char> node3( 'q' );
 		LinkedList::ListNode<std::string> node4( "coffee is good" );
 
-		EXPECT_EQ( node1.GetData(), 5 );
-		EXPECT_FLOAT_EQ( node2.GetData(), -20.0F );
-		EXPECT_EQ( node3.GetData(), 'q' );
-		EXPECT_EQ( node4.GetData(), "coffee is good" );
+		EXPECT_EQ( node1.Data(), 5 );
+		EXPECT_FLOAT_EQ( node2.Data(), -20.0F );
+		EXPECT_EQ( node3.Data(), 'q' );
+		EXPECT_EQ( node4.Data(), "coffee is good" );
 	}
 
-	TEST( ListNodesTests, SetAndGetData ) {
+	TEST( ListNodesTests, SetAndData ) {
 		LinkedList::ListNode<int> node;
-		node.SetData( 5 );
-		EXPECT_EQ( node.GetData(), 5 );
-		node.SetData( 200 );
-		EXPECT_EQ( node.GetData(), 200 );
+		node.Data( 5 );
+		EXPECT_EQ( node.Data(), 5 );
+		node.Data( 200 );
+		EXPECT_EQ( node.Data(), 200 );
 	}
 
 	TEST( ListNodeTests, NextDefaultNullptr ) {
 		LinkedList::ListNode<int> node;
-		EXPECT_EQ( node.GetNext(), nullptr );
+		EXPECT_EQ( node.Next(), nullptr );
 	}
 
-	TEST( ListNodeTests, SetAndGetNextNode ) {
+	TEST( ListNodeTests, SetAndNextNode ) {
 		LinkedList::ListNode<int> head( 5 );
 		LinkedList::ListNode<int> tail( 10 );
-		head.SetNext( &tail );
+		head.Next( &tail );
 		LinkedList::ListNode<int>* current = &head;
-		current = current->GetNext();
+		current = current->Next();
 		EXPECT_EQ( current, &tail );
 	}
 }
