@@ -8,13 +8,27 @@
     <Filter Include="Source Files\LinkedList">
       <UniqueIdentifier>{ef3dd063-3e82-4f53-a4e5-c0cf331824f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\LinkedList\Objects">
+      <UniqueIdentifier>{50a5b94d-9b4b-4be0-a91d-0c01e6ccc3cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListNode.h">
+    <ClInclude Include="LinkedListRunner.cpp">
       <Filter>Source Files\LinkedList</Filter>
     </ClInclude>
     <ClInclude Include="DoubleListNode.h">
-      <Filter>Source Files\LinkedList</Filter>
+      <Filter>Source Files\LinkedList\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="ListNode.h">
+      <Filter>Source Files\LinkedList\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Source Files\LinkedList\Objects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

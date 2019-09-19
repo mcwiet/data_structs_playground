@@ -16,10 +16,10 @@ namespace LinkedList {
 		inline void SetData( const T& data ) { data_ = data; }
 
 		inline ListNode* GetNext() { return next_; }
-		inline void SetNext( ListNode* ) { next_ = next; }
+		inline void SetNext( ListNode* next ) { next_ = next; }
 
 	protected:
 		T data_;
-		ListNode* next_;
+		ListNode* next_ = nullptr;
 	};
 }
