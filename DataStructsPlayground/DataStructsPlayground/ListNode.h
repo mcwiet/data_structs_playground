@@ -6,8 +6,9 @@ namespace LinkedList {
 	public:
 		ListNode<T>() = default;
 		ListNode<T>( T data ) :
-			data_( data ),
-			next_( nullptr ) {};
+			data_( data ) {};
+		ListNode<T>( ListNode* next ) :
+			next_( next ) {};
 		ListNode<T>( T data, ListNode* next ) :
 			data_( data_ ),
 			next_( next ) {};

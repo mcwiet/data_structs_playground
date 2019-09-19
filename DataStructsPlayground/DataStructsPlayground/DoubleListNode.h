@@ -6,9 +6,12 @@ namespace LinkedList {
 	public:
 		DoubleListNode<T>() = default;
 		DoubleListNode<T>( T data ) :
-			data_( data ),
-			next_( nullptr ),
-			prev_( nullptr ) {};
+			data_( data ) {};
+		DoubleListNode<T>( DoubleListNode* next ) :
+			next_( next ) {};
+		DoubleListNode<T>( DoubleListNode* next, DoubleListNode* prev ) :
+			next_( next ),
+			prev_( prev ) {};
 		DoubleListNode<T>( T data, DoubleListNode* next, DoubleListNode* prev ) :
 			data_( data_ ),
 			next_( next ),
@@ -20,12 +23,12 @@ namespace LinkedList {
 		inline DoubleListNode* Next() { return next_; }
 		inline void Next( DoubleListNode* next ) { next_ = next; }
 
-		inline DoubleListNode* GetPrev() { return prev_; }
-		inline void SetPrev( DoubleListNode* prev ) { prev_ = prev; }
+		inline DoubleListNode* Prev() { return prev_; }
+		inline void Prev( DoubleListNode* prev ) { prev_ = prev; }
 
 	protected:
 		T data_;
-		DoubleListNode* next_;
-		DoubleListNode* prev_;
+		DoubleListNode* next_ = nullptr;
+		DoubleListNode* prev_ = nullptr;
 	};
 }
