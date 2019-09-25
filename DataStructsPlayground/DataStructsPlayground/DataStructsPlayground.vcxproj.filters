@@ -25,6 +25,12 @@
     <ClInclude Include="List.h">
       <Filter>Source Files\LinkedList\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="BinaryTree.h">
+      <Filter>Source Files\LinkedList\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeNode.h">
+      <Filter>Source Files\LinkedList\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

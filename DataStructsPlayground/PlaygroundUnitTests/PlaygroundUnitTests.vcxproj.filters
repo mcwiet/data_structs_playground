@@ -8,6 +8,9 @@
     <ClCompile Include="DoubleListNodeTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="ListTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -16,5 +19,8 @@
     <Filter Include="Tests">
       <UniqueIdentifier>{dc8e7ce5-2748-48df-8580-2e666aecd33b}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
