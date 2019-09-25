@@ -4,12 +4,10 @@
 #include <queue>
 #include <exception>
 
+// Note: Class is written to assume that the tree will always be a complete tree.
+
 namespace Tree {
 	class RemovingInvalidValueException : public std::exception {};
-
-	// For many of the functions, we don't assume that the tree is complete.
-	// Based on how we wrote Insert and Remove, we should be safe
-	// to make that assumption and optimize the code a bit.
 
 	template <typename T>
 	class BinaryTree {
@@ -17,12 +15,9 @@ namespace Tree {
 		virtual ~BinaryTree() {
 			std::queue<TreeNode<T>*> nodes;
 			nodes.push(root_);
-			while (!nodes.empty()) {
+			while (nodes.front() != nullptr) {
 				auto node = nodes.front();
 				nodes.pop();
-				if (node == nullptr) {
-					continue;
-				}
 				nodes.push(node->Left());
 				nodes.push(node->Right());
 				delete node;
@@ -30,27 +25,15 @@ namespace Tree {
 		}
 
 		inline void Insert(const T& data) {
-			if (root_ == nullptr) {
-				root_ = new TreeNode<T>(data);
+			std::queue<TreeNode<T>**> nodes;
+			nodes.push(&root_);
+			while (*nodes.front() != nullptr) {
+				auto current = nodes.front();
+				nodes.pop();
+				nodes.push((*current)->LeftAddr());
+				nodes.push((*current)->RightAddr());
 			}
-			else {
-				std::queue<TreeNode<T>*> nodes;
-				nodes.push(root_);
-				while (!nodes.empty()) {
-					auto node = nodes.front();
-					nodes.pop();
-					if (node->Left() == nullptr) {
-						node->Left(new TreeNode<T>(data));
-					}
-					else if (node->Right() == nullptr) {
-						node->Right(new TreeNode<T>(data));
-					}
-					else {
-						nodes.push(node->Left());
-						nodes.push(node->Right());
-					}
-				}
-			}
+			*nodes.front() = new TreeNode<T>(data);
 		};
 
 		inline void Remove(const T& data) {
@@ -72,32 +55,30 @@ namespace Tree {
 				delete (*current);
 				*current = nullptr;
 			}
+			else {
+				throw RemovingInvalidValueException();
+			}
 		};
-
-		inline bool IsEmpty() { return root_ == nullptr; }
 
 		inline bool Find(const T& data) {
 			bool found = false;
 			std::queue<TreeNode<T>*> nodes;
 			nodes.push(root_);
-			while (!nodes.empty()) {
-				auto node = nodes.front();
+			while (nodes.front() != nullptr) {
+				auto current = nodes.front();
 				nodes.pop();
-				if (node == nullptr) {
-					continue;
-				}
-				else if (node->Data() == data) {
+				if (current->Data() == data) {
 					found = true;
 					break;
 				}
-				else {
-					nodes.push(node->Left());
-					nodes.push(node->Right());
-				}
+				nodes.push(current->Left());
+				nodes.push(current->Right());
 			}
 
 			return found;
 		}
+
+		inline bool IsEmpty() { return root_ == nullptr; }
 		//template<typename Ret, typename Func>
 		//Ret VisitInOrder(Func&& lambda) {
 		//	return VisitInOrderHelper(head_, lambda);
