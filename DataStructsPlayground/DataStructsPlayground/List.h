@@ -19,7 +19,7 @@ namespace LinkedList {
 			}
 		}
 
-		inline void AppendBack(T data) {
+		inline void AppendBack(const T& data) {
 			auto node = new ListNode<T>(data);
 			if (head_ != nullptr) {
 				tail_->Next(node);

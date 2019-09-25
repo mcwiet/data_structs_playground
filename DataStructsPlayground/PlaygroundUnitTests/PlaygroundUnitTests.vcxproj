@@ -36,6 +36,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryTreeTests.cpp" />
     <ClCompile Include="DoubleListNodeTests.cpp" />
     <ClCompile Include="ListNodeTests.cpp" />
     <ClCompile Include="ListTests.cpp" />
@@ -45,11 +46,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataStructsPlayground\DataStructsPlayground.vcxproj">
-      <Project>{7cfeb524-c985-46a2-94a4-18ac53ac1548}</Project>
-    </ProjectReference>
+    <ClCompile Include="TreeNodeTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

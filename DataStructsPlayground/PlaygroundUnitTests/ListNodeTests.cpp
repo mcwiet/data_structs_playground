@@ -4,7 +4,7 @@
 
 namespace PlaygroundUnitTests {
 	namespace LinkedListTests {
-		TEST(ListNodeTests, ConstructWithData) {
+		TEST(ListNode, ConstructWithVariousTypes) {
 			LinkedList::ListNode<int> node1(5);
 			LinkedList::ListNode<float> node2(-20.0F);
 			LinkedList::ListNode<char> node3('q');
@@ -16,7 +16,7 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(node4.Data(), "coffee is good");
 		}
 
-		TEST(ListNodeTests, SetAndGetData) {
+		TEST(ListNode, SetAndGetData) {
 			LinkedList::ListNode<int> node;
 			node.Data(5);
 			EXPECT_EQ(node.Data(), 5);
@@ -24,12 +24,12 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(node.Data(), 200);
 		}
 
-		TEST(ListNodeTests, NextDefaultsToNullptr) {
+		TEST(ListNode, NextDefaultsToNullptr) {
 			LinkedList::ListNode<int> node;
 			EXPECT_EQ(node.Next(), nullptr);
 		}
 
-		TEST(ListNodeTests, SetAndGetNextNode) {
+		TEST(ListNode, SetAndGetNextNode) {
 			LinkedList::ListNode<int> head;
 			LinkedList::ListNode<int> tail;
 			head.Next(&tail);
@@ -39,13 +39,13 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(current, &tail);
 		}
 
-		TEST(ListNodeTests, ConstructWithNext) {
+		TEST(ListNode, ConstructWithNext) {
 			LinkedList::ListNode<int> tail;
 			LinkedList::ListNode<int> head(&tail);
 			EXPECT_EQ(head.Next(), &tail);
 		}
 
-		TEST(ListNodeTests, DataNotStoredAsReference) {
+		TEST(ListNode, DataNotStoredAsReference) {
 			LinkedList::ListNode<int> node;
 			int x = 5;
 			node.Data(x);

@@ -3,14 +3,14 @@
 #include "ListNode.h"
 
 namespace PlaygroundUnitTests {
-	TEST(ListTests, SingleAppendSinglePop) {
+	TEST(List, SingleAppendSinglePop) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		auto data = list.PopFront();
 		EXPECT_EQ(data, 1);
 	}
 
-	TEST(ListTests, MultiAppendSinglePop) {
+	TEST(List, MultiAppendSinglePop) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);
@@ -21,7 +21,7 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(data, 1);
 	}
 
-	TEST(ListTests, MultiAppendMultiPop) {
+	TEST(List, MultiAppendMultiPop) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);
@@ -36,7 +36,7 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(data, 3);
 	}
 
-	TEST(ListTests, MultiAppendPopAll) {
+	TEST(List, MultiAppendPopAll) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);
@@ -55,25 +55,25 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(data, 5);
 	}
 
-	TEST(ListTests, EmptyOnConstruction) {
+	TEST(List, EmptyOnConstruction) {
 		LinkedList::List<int> list;
 		EXPECT_TRUE(list.IsEmpty());
 	}
 
-	TEST(ListTests, NotEmptyAfterAppend) {
+	TEST(List, NotEmptyAfterAppend) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		EXPECT_FALSE(list.IsEmpty());
 	}
 
-	TEST(ListTests, EmptyAfterSingleAppendSinglePop) {
+	TEST(List, EmptyAfterSingleAppendSinglePop) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		auto data = list.PopFront();
 		EXPECT_TRUE(list.IsEmpty());
 	}
 
-	TEST(ListTests, NotEmptyAfterMultiAppendSinglePop) {
+	TEST(List, NotEmptyAfterMultiAppendSinglePop) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);
@@ -81,7 +81,7 @@ namespace PlaygroundUnitTests {
 		EXPECT_FALSE(list.IsEmpty());
 	}
 
-	TEST(ListTests, EmptyAfterMultiAppendPopAll) {
+	TEST(List, EmptyAfterMultiAppendPopAll) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);
@@ -90,12 +90,12 @@ namespace PlaygroundUnitTests {
 		EXPECT_TRUE(list.IsEmpty());
 	}
 
-	TEST(ListTests, PopEmptyListException) {
+	TEST(List, PopEmptyListException) {
 		LinkedList::List<int> list;
 		EXPECT_THROW(auto data = list.PopFront(), LinkedList::EmptyListException);
 	}
 
-	TEST(ListTests, SuccessfulFind) {
+	TEST(List, SuccessfulFind) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);
@@ -103,7 +103,7 @@ namespace PlaygroundUnitTests {
 		EXPECT_TRUE(found);
 	}
 
-	TEST(ListTests, UnsuccessfulFind) {
+	TEST(List, UnsuccessfulFind) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
 		list.AppendBack(2);

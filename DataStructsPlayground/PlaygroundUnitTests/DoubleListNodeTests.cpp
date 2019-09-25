@@ -4,7 +4,7 @@
 
 namespace PlaygroundUnitTests {
 	namespace LinkedListTests {
-		TEST(DoubleListNodeTests, ConstructWithData) {
+		TEST(DoubleListNode, ConstructWithData) {
 			LinkedList::DoubleListNode<int> node1(5);
 			LinkedList::DoubleListNode<float> node2(-20.0F);
 			LinkedList::DoubleListNode<char> node3('q');
@@ -16,7 +16,7 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(node4.Data(), "coffee is good");
 		}
 
-		TEST(DoubleListNodeTests, SetAndGetData) {
+		TEST(DoubleListNode, SetAndGetData) {
 			LinkedList::DoubleListNode<int> node;
 			node.Data(5);
 			EXPECT_EQ(node.Data(), 5);
@@ -24,17 +24,17 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(node.Data(), 200);
 		}
 
-		TEST(DoubleListNodeTests, NextDefaultsToNullptr) {
+		TEST(DoubleListNode, NextDefaultsToNullptr) {
 			LinkedList::DoubleListNode<int> node;
 			EXPECT_EQ(node.Next(), nullptr);
 		}
 
-		TEST(DoubleListNodeTests, PrevDefaultsToNullptr) {
+		TEST(DoubleListNode, PrevDefaultsToNullptr) {
 			LinkedList::DoubleListNode<int> node;
 			EXPECT_EQ(node.Prev(), nullptr);
 		}
 
-		TEST(DoubleListNodeTests, SetAndGetNextNode) {
+		TEST(DoubleListNode, SetAndGetNextNode) {
 			LinkedList::DoubleListNode<int> head;
 			LinkedList::DoubleListNode<int> tail;
 			head.Next(&tail);
@@ -44,7 +44,7 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(current, &tail);
 		}
 
-		TEST(DoubleListNodeTests, SetAndGetPrevNode) {
+		TEST(DoubleListNode, SetAndGetPrevNode) {
 			LinkedList::DoubleListNode<int> head;
 			LinkedList::DoubleListNode<int> tail;
 			tail.Prev(&head);
@@ -54,13 +54,13 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(current, &head);
 		}
 
-		TEST(DoubleListNodeTests, ConstructWithNext) {
+		TEST(DoubleListNode, ConstructWithNext) {
 			LinkedList::DoubleListNode<int> tail;
 			LinkedList::DoubleListNode<int> head(&tail);
 			EXPECT_EQ(head.Next(), &tail);
 		}
 
-		TEST(DoubleListNodeTests, ConstructWithNextAndPrev) {
+		TEST(DoubleListNode, ConstructWithNextAndPrev) {
 			LinkedList::DoubleListNode<int> tail;
 			LinkedList::DoubleListNode<int> head;
 			LinkedList::DoubleListNode<int> mid(&tail, &head);
@@ -68,7 +68,7 @@ namespace PlaygroundUnitTests {
 			EXPECT_EQ(mid.Prev(), &head);
 		}
 
-		TEST(DoubleListNodeTests, DataNotStoredAsReference) {
+		TEST(DoubleListNode, DataNotStoredAsReference) {
 			LinkedList::DoubleListNode<int> node;
 			int x = 5;
 			node.Data(x);

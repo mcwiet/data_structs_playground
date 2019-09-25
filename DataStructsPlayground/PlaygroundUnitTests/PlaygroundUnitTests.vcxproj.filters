@@ -11,6 +11,12 @@
     <ClCompile Include="ListTests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="TreeNodeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="BinaryTreeTests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

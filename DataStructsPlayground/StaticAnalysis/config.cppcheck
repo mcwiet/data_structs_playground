@@ -2,11 +2,14 @@
 <project version="1">
     <builddir>build</builddir>
     <platform>Native</platform>
-    <importproject>../DataStructsPlayground/DataStructsPlayground.vcxproj</importproject>
+    <importproject>../DataStructsPlayground.sln</importproject>
     <analyze-all-vs-configs>true</analyze-all-vs-configs>
     <check-headers>true</check-headers>
     <check-unused-templates>false</check-unused-templates>
     <max-ctu-depth>10</max-ctu-depth>
+    <exclude>
+        <path name="../PlaygroundUnitTests/"/>
+    </exclude>
     <libraries>
         <library>googletest</library>
     </libraries>

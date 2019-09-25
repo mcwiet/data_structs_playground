@@ -4,13 +4,13 @@ namespace LinkedList {
 	template<typename T>
 	class ListNode {
 	public:
-		ListNode<T>() = default;
-		ListNode<T>(T data) :
+		explicit ListNode<T>() = default;
+		explicit ListNode<T>(const T& data) :
 			data_(data) {};
-		ListNode<T>(ListNode* next) :
+		explicit ListNode<T>(ListNode* next) :
 			next_(next) {};
-		ListNode<T>(T data, ListNode* next) :
-			data_(data_),
+		explicit ListNode<T>(const T& data, ListNode* next) :
+			data_(data),
 			next_(next) {};
 
 		inline const T& Data() { return data_; }
