@@ -79,7 +79,7 @@ namespace PlaygroundUnitTests {
 		EXPECT_THROW(tree.Remove(10), Tree::RemovingInvalidValueException);
 	}
 
-	TEST(BinaryTree, InOrderVisitSum) {
+	TEST(BinaryTree, InOrderVisitLetters) {
 		Tree::BinaryTree<char> tree;
 
 		tree.Insert('a');
@@ -95,5 +95,41 @@ namespace PlaygroundUnitTests {
 		tree.VisitInOrder(func);
 
 		EXPECT_EQ(letters, "dbeafcg");
+	}
+
+	TEST(BinaryTree, PreOrderVisitLetters) {
+		Tree::BinaryTree<char> tree;
+
+		tree.Insert('a');
+		tree.Insert('b');
+		tree.Insert('c');
+		tree.Insert('d');
+		tree.Insert('e');
+		tree.Insert('f');
+		tree.Insert('g');
+
+		std::string letters = "";
+		auto func = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitPreOrder(func);
+
+		EXPECT_EQ(letters, "abdecfg");
+	}
+
+	TEST(BinaryTree, PostOrderVisitLetters) {
+		Tree::BinaryTree<char> tree;
+
+		tree.Insert('a');
+		tree.Insert('b');
+		tree.Insert('c');
+		tree.Insert('d');
+		tree.Insert('e');
+		tree.Insert('f');
+		tree.Insert('g');
+
+		std::string letters = "";
+		auto func = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitPostOrder(func);
+
+		EXPECT_EQ(letters, "debfgca");
 	}
 }

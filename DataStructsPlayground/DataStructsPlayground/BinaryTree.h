@@ -82,8 +82,18 @@ namespace Tree {
 		inline bool IsEmpty() { return root_ == nullptr; }
 
 		template<typename Func, typename... Args>
-		void VisitInOrder(Func&& func, Args& ... args) {
-			VisitInOrderHelper(root_, func, args...);
+		void VisitInOrder(Func&& visit_func, Args& ... args) {
+			VisitInOrderHelper(root_, visit_func, args...);
+		}
+
+		template<typename Func, typename... Args>
+		void VisitPreOrder(Func&& visit_func, Args& ... args) {
+			VisitPreOrderHelper(root_, visit_func, args...);
+		}
+
+		template<typename Func, typename... Args>
+		void VisitPostOrder(Func&& visit_func, Args& ... args) {
+			VisitPostOrderHelper(root_, visit_func, args...);
 		}
 
 	private:
@@ -95,6 +105,26 @@ namespace Tree {
 			VisitInOrderHelper(node->Left(), func, args...);
 			func(node, args...);
 			VisitInOrderHelper(node->Right(), func, args...);
+		}
+
+		template<typename Func, typename... Args>
+		void VisitPreOrderHelper(TreeNode<T>* node, Func&& func, Args& ... args) {
+			if (node == nullptr)
+				return;
+
+			func(node, args...);
+			VisitPreOrderHelper(node->Left(), func, args...);
+			VisitPreOrderHelper(node->Right(), func, args...);
+		}
+
+		template<typename Func, typename... Args>
+		void VisitPostOrderHelper(TreeNode<T>* node, Func&& func, Args& ... args) {
+			if (node == nullptr)
+				return;
+
+			VisitPostOrderHelper(node->Left(), func, args...);
+			VisitPostOrderHelper(node->Right(), func, args...);
+			func(node, args...);
 		}
 
 		TreeNode<T>* root_ = nullptr;
