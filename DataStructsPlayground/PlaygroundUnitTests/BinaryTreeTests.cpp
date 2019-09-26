@@ -80,20 +80,20 @@ namespace PlaygroundUnitTests {
 	}
 
 	TEST(BinaryTree, InOrderVisitSum) {
-		Tree::BinaryTree<int> tree;
-		tree.Insert(10);
-		tree.Insert(25);
-		tree.Insert(-5);
-		tree.Insert(7657);
-		tree.Insert(-432738);
+		Tree::BinaryTree<char> tree;
 
-		int func_sum = 0;
-		std::function<void(Tree::TreeNode<int>*, int*)> func =
-			[](Tree::TreeNode<int>* node, int* sum) { *sum += node->Data(); };
-		int known_sum = 10 + 25 - 5 + 7657 - 432738;
+		tree.Insert('a');
+		tree.Insert('b');
+		tree.Insert('c');
+		tree.Insert('d');
+		tree.Insert('e');
+		tree.Insert('f');
+		tree.Insert('g');
 
-		tree.VisitInOrder(func, &func_sum);
+		std::string letters = "";
+		auto func = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitInOrder(func);
 
-		EXPECT_EQ(func_sum, known_sum);
+		EXPECT_EQ(letters, "dbeafcg");
 	}
 }

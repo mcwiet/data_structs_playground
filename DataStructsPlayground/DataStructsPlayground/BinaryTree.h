@@ -81,18 +81,14 @@ namespace Tree {
 
 		inline bool IsEmpty() { return root_ == nullptr; }
 
-		void VisitInOrder(std::function<void(TreeNode<T>*)> func) {
-			VisitInOrderHelper(root_, func);
-		}
-
-		template<typename... Args>
-		void VisitInOrder(std::function<void(TreeNode<T>*, Args...)> func, Args... args) {
+		template<typename Func, typename... Args>
+		void VisitInOrder(Func&& func, Args& ... args) {
 			VisitInOrderHelper(root_, func, args...);
 		}
 
 	private:
-		template<typename... Args>
-		void VisitInOrderHelper(TreeNode<T>* node, std::function<void(TreeNode<T>*, Args...)> func, Args... args) {
+		template<typename Func, typename... Args>
+		void VisitInOrderHelper(TreeNode<T>* node, Func&& func, Args& ... args) {
 			if (node == nullptr)
 				return;
 
