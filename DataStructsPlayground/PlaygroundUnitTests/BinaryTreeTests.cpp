@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "BinaryTree.h"
+#include <functional>
+#include <iostream>
 
 namespace PlaygroundUnitTests {
 	TEST(BinaryTree, DISABLED_MemoryLeakCheck) {
@@ -75,5 +77,23 @@ namespace PlaygroundUnitTests {
 	TEST(BinaryTree, ExceptionRemovingValueNotInTree) {
 		Tree::BinaryTree<int> tree;
 		EXPECT_THROW(tree.Remove(10), Tree::RemovingInvalidValueException);
+	}
+
+	TEST(BinaryTree, InOrderVisitSum) {
+		Tree::BinaryTree<int> tree;
+		tree.Insert(10);
+		tree.Insert(25);
+		tree.Insert(-5);
+		tree.Insert(7657);
+		tree.Insert(-432738);
+
+		int func_sum = 0;
+		std::function<void(Tree::TreeNode<int>*, int*)> func =
+			[](Tree::TreeNode<int>* node, int* sum) { *sum += node->Data(); };
+		int known_sum = 10 + 25 - 5 + 7657 - 432738;
+
+		tree.VisitInOrder(func, &func_sum);
+
+		EXPECT_EQ(func_sum, known_sum);
 	}
 }

@@ -28,5 +28,8 @@
     <ClInclude Include="BinaryTree.h">
       <Filter>Source Files\Tree</Filter>
     </ClInclude>
+    <ClInclude Include="BinarySearchTree.h">
+      <Filter>Source Files\Tree</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

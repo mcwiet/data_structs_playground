@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="DoubleListNode.h" />
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="List.h" />

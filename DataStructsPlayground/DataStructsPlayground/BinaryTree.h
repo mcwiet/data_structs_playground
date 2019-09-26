@@ -3,6 +3,7 @@
 #include "TreeNode.h"
 #include <queue>
 #include <exception>
+#include <functional>
 
 // Note: Class is written to assume that the tree will always be a complete tree.
 
@@ -79,17 +80,26 @@ namespace Tree {
 		}
 
 		inline bool IsEmpty() { return root_ == nullptr; }
-		//template<typename Ret, typename Func>
-		//Ret VisitInOrder(Func&& lambda) {
-		//	return VisitInOrderHelper(head_, lambda);
-		//}
+
+		void VisitInOrder(std::function<void(TreeNode<T>*)> func) {
+			VisitInOrderHelper(root_, func);
+		}
+
+		template<typename... Args>
+		void VisitInOrder(std::function<void(TreeNode<T>*, Args...)> func, Args... args) {
+			VisitInOrderHelper(root_, func, args...);
+		}
 
 	private:
-		//template<typename Ret, typename Func>
-		//Ret VisitInOrderHelper(TreeNode<T>* node, Func&& lambda) {
-		//	VisitInOrderHelper(node->Left(), lambda);
-		//	lambda()
-		//}
+		template<typename... Args>
+		void VisitInOrderHelper(TreeNode<T>* node, std::function<void(TreeNode<T>*, Args...)> func, Args... args) {
+			if (node == nullptr)
+				return;
+
+			VisitInOrderHelper(node->Left(), func, args...);
+			func(node, args...);
+			VisitInOrderHelper(node->Right(), func, args...);
+		}
 
 		TreeNode<T>* root_ = nullptr;
 	};
