@@ -2,7 +2,7 @@
 #include "BinaryTree.h"
 
 namespace PlaygroundUnitTests {
-	TEST(BinaryTree, DISABLED_MemTest) {
+	TEST(BinaryTree, DISABLED_MemoryLeakCheck) {
 		for (int i = 0; i < 10000; ++i) {
 			Tree::BinaryTree<int> tree;
 			tree.Insert(10);

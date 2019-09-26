@@ -3,6 +3,18 @@
 #include "ListNode.h"
 
 namespace PlaygroundUnitTests {
+	TEST(List, DISABLED_MemoryLeakCheck) {
+		for (int i = 0; i < 100000; ++i) {
+			LinkedList::List<int> list;
+			list.AppendBack(1);
+			list.AppendBack(2);
+			list.AppendBack(3);
+			list.AppendBack(4);
+			list.AppendBack(5);
+		}
+		EXPECT_TRUE(true);
+	}
+
 	TEST(List, SingleAppendSinglePop) {
 		LinkedList::List<int> list;
 		list.AppendBack(1);
