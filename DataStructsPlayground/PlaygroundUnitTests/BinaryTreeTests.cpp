@@ -91,8 +91,8 @@ namespace PlaygroundUnitTests {
 		tree.Insert('g');
 
 		std::string letters = "";
-		auto func = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
-		tree.VisitInOrder(func);
+		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitInOrder(build_string);
 
 		EXPECT_EQ(letters, "dbeafcg");
 	}
@@ -109,8 +109,8 @@ namespace PlaygroundUnitTests {
 		tree.Insert('g');
 
 		std::string letters = "";
-		auto func = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
-		tree.VisitPreOrder(func);
+		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitPreOrder(build_string);
 
 		EXPECT_EQ(letters, "abdecfg");
 	}
@@ -127,9 +127,51 @@ namespace PlaygroundUnitTests {
 		tree.Insert('g');
 
 		std::string letters = "";
-		auto func = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
-		tree.VisitPostOrder(func);
+		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitPostOrder(build_string);
 
 		EXPECT_EQ(letters, "debfgca");
+	}
+
+	TEST(BinaryTree, RValueReferenceInVisit) {
+		Tree::BinaryTree<char> tree;
+
+		tree.Insert('a');
+		tree.Insert('b');
+		tree.Insert('c');
+		tree.Insert('d');
+		tree.Insert('e');
+		tree.Insert('f');
+		tree.Insert('g');
+
+		std::string letters = "";
+		auto mark_visited = [](Tree::TreeNode<char>* node, char new_letter) { node->Data(new_letter); };
+		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitPostOrder(mark_visited, 'v');
+		tree.VisitPostOrder(build_string);
+
+		EXPECT_EQ(letters, "vvvvvvv");
+	}
+
+	TEST(BinaryTree, MutableLambdaInVisit) {
+		// This test is super contrived and is just here to prove that, if needed, you could use a mutable lambda
+		Tree::BinaryTree<char> tree;
+
+		tree.Insert('a');
+		tree.Insert('b');
+		tree.Insert('c');
+		tree.Insert('d');
+		tree.Insert('e');
+		tree.Insert('f');
+		tree.Insert('g');
+
+		char new_letter = '\n';
+		auto mark_visited = [=](Tree::TreeNode<char>* node) mutable { new_letter = 'v';  node->Data(new_letter); };
+		std::string letters = "";
+		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+		tree.VisitPostOrder(mark_visited);
+		tree.VisitPostOrder(build_string);
+
+		EXPECT_EQ(letters, "vvvvvvv");
 	}
 }
