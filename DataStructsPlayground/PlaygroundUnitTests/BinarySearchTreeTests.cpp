@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BinarySearchTree.h"
+#include "ExceptionRemovingInvalidTreeNode.h"
 
 namespace BinarySearchTree {
 	TEST(BinarySearchTree, DISABLED_MemoryLeakCheck) {
@@ -10,6 +11,8 @@ namespace BinarySearchTree {
 			tree.Insert(-6);
 			tree.Insert(2);
 			tree.Insert(5);
+			tree.Remove(10);
+			tree.Remove(-6);
 		}
 		EXPECT_TRUE(true);
 	}
@@ -74,61 +77,63 @@ namespace BinarySearchTree {
 
 	TEST(BinarySearchTree, ExceptionRemovingValueNotInTree) {
 		Tree::BinarySearchTree<int> tree;
-		EXPECT_THROW(tree.Remove(10), Tree::RemovingInvalidValueException);
+		EXPECT_THROW(tree.Remove(10), Tree::ExceptionRemovingInvalidTreeNode);
 	}
 
-	TEST(BinarySearchTree, InOrderVisitLetters) {
-		Tree::BinarySearchTree<char> tree;
+	void SetupTreeForVisitTests(Tree::BinarySearchTree<int>& tree) {
+		tree.Insert(2);
+		tree.Insert(15);
+		tree.Insert(-5);
+		tree.Insert(-4);
+		tree.Insert(3);
+		tree.Insert(-8);
+		tree.Remove(2);  // Removing node with double child
+		tree.Insert(-5); // Adding duplicate
+		tree.Insert(12);
+		tree.Remove(15); // Removing node with single child
+		tree.Remove(-4); // Removing node with no child
 
-		tree.Insert('a');
-		tree.Insert('b');
-		tree.Insert('c');
-		tree.Insert('d');
-		tree.Insert('e');
-		tree.Insert('f');
-		tree.Insert('g');
+		/* Final result should look like:
+					3
+				 -5   12
+			   -8
+		*/
+	}
 
-		std::string letters = "";
-		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+	TEST(BinarySearchTree, InOrderVisitNums) {
+		Tree::BinarySearchTree<int> tree;
+		SetupTreeForVisitTests(tree);
+		std::string nums = "";
+		auto build_string = [&](Tree::TreeNode<int>* node) {
+			nums += (std::to_string(node->Data()) + ",");
+		};
 		tree.VisitInOrder(build_string);
 
-		EXPECT_EQ(letters, "dbeafcg");
+		EXPECT_EQ(nums, "-8,-5,3,12,");
 	}
 
-	TEST(BinarySearchTree, PreOrderVisitLetters) {
-		Tree::BinarySearchTree<char> tree;
-
-		tree.Insert('a');
-		tree.Insert('b');
-		tree.Insert('c');
-		tree.Insert('d');
-		tree.Insert('e');
-		tree.Insert('f');
-		tree.Insert('g');
-
-		std::string letters = "";
-		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+	TEST(BinarySearchTree, PreOrderVisitNums) {
+		Tree::BinarySearchTree<int> tree;
+		SetupTreeForVisitTests(tree);
+		std::string nums = "";
+		auto build_string = [&](Tree::TreeNode<int>* node) {
+			nums += (std::to_string(node->Data()) + ",");
+		};
 		tree.VisitPreOrder(build_string);
 
-		EXPECT_EQ(letters, "abdecfg");
+		EXPECT_EQ(nums, "3,-5,-8,12,");
 	}
 
-	TEST(BinarySearchTree, PostOrderVisitLetters) {
-		Tree::BinarySearchTree<char> tree;
-
-		tree.Insert('a');
-		tree.Insert('b');
-		tree.Insert('c');
-		tree.Insert('d');
-		tree.Insert('e');
-		tree.Insert('f');
-		tree.Insert('g');
-
-		std::string letters = "";
-		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
+	TEST(BinarySearchTree, PostOrderVisitNums) {
+		Tree::BinarySearchTree<int> tree;
+		SetupTreeForVisitTests(tree);
+		std::string nums = "";
+		auto build_string = [&](Tree::TreeNode<int>* node) {
+			nums += (std::to_string(node->Data()) + ",");
+		};
 		tree.VisitPostOrder(build_string);
 
-		EXPECT_EQ(letters, "debfgca");
+		EXPECT_EQ(nums, "-8,-5,12,3,");
 	}
 
 	TEST(BinarySearchTree, RValueReferenceInVisit) {

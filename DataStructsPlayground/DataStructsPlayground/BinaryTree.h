@@ -1,8 +1,8 @@
 #pragma once
 
 #include "TreeNode.h"
+#include "ExceptionRemovingInvalidTreeNode.h"
 #include <queue>
-#include <exception>
 
 // Note: Class is written to assume that the tree will always be a complete tree.
 
@@ -56,7 +56,7 @@ namespace Tree {
 				*current = nullptr;
 			}
 			else {
-				throw RemovingInvalidValueException();
+				throw ExceptionRemovingInvalidTreeNode();
 			}
 		};
 

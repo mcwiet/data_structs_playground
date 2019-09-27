@@ -1,17 +1,15 @@
 #pragma once
 #include "TreeNode.h"
-#include <exception>
+#include "ExceptionRemovingInvalidTreeNode.h"
 #include <queue>
 
 // For now, just copying and re-writing functionality as necessary from the
 // BinaryTree class. Obviously more OO ways of doing it, but not my main concern here :)
 
-// Also, our BST will follow the rule that no duplicates are allowed but will does not
-// have to be a complete tree.
+// Also, our BST will follow the rule that no duplicates are allowed but we cannot assume
+// that it will be a complete tree.
 
 namespace Tree {
-	class RemovingInvalidValueException : public std::exception {};
-
 	template <typename T>
 	class BinarySearchTree {
 	public:
@@ -49,11 +47,52 @@ namespace Tree {
 		};
 
 		inline void Remove(const T& data) {
-			return;
+			bool found = false;
+			TreeNode<T>** current = &root_;
+			while (*current != nullptr) {
+				if (data < (*current)->Data()) {
+					current = (*current)->LeftAddr();
+				}
+				else if (data > (*current)->Data()) {
+					current = (*current)->RightAddr();
+				}
+				else {
+					bool has_left = ((*current)->Left() != nullptr) ? true : false;
+					bool has_right = ((*current)->Right() != nullptr) ? true : false;
+					if (has_left && has_right) {
+						RemoveNodeDoubleChild(current);
+					}
+					else if (has_left || has_right) {
+						RemoveNodeSingleChild(current);
+					}
+					else {
+						RemoveNodeNoChild(current);
+					}
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				throw ExceptionRemovingInvalidTreeNode();
+			}
 		};
 
 		inline bool Find(const T& data) {
-			return false;
+			TreeNode<T>** current = &root_;
+			bool found = false;
+			while (*current != nullptr) {
+				if (data < (*current)->Data()) {
+					current = (*current)->LeftAddr();
+				}
+				else if (data > (*current)->Data()) {
+					current = (*current)->RightAddr();
+				}
+				else {
+					found = true;
+					break;
+				}
+			}
+			return found;
 		}
 
 		inline bool IsEmpty() { return root_ == nullptr; }
@@ -102,6 +141,32 @@ namespace Tree {
 			VisitPostOrderHelper(node->Left(), std::forward<Func>(func), std::forward<Args>(args)...);
 			VisitPostOrderHelper(node->Right(), std::forward<Func>(func), std::forward<Args>(args)...);
 			func(node, args...);
+		}
+
+		void RemoveNodeDoubleChild(TreeNode<T>** current) {
+			TreeNode<T>** successor = (*current)->RightAddr();
+			while ((*successor)->Left() != nullptr) {
+				successor = (*successor)->LeftAddr();
+			}
+			// Not the most efficient way if T is large class, but easier to read
+			(*current)->Data((*successor)->Data());
+			if ((*successor)->Right() != nullptr) {
+				RemoveNodeSingleChild(successor);
+			}
+			else {
+				RemoveNodeNoChild(successor);
+			}
+		}
+
+		void RemoveNodeSingleChild(TreeNode<T>** current) {
+			TreeNode<T>* child = ((*current)->Left() != nullptr) ? (*current)->Left() : (*current)->Right();
+			delete (*current);
+			*current = child;
+		}
+
+		void RemoveNodeNoChild(TreeNode<T>** current) {
+			delete (*current);
+			*current = nullptr;
 		}
 
 		TreeNode<T>* root_ = nullptr;

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BinaryTree.h"
+#include "ExceptionRemovingInvalidTreeNode.h"
 
 namespace PlaygroundUnitTests {
 	TEST(BinaryTree, DISABLED_MemoryLeakCheck) {
@@ -10,6 +11,7 @@ namespace PlaygroundUnitTests {
 			tree.Insert(-6);
 			tree.Insert(2);
 			tree.Insert(5);
+			tree.Remove(5);
 		}
 		EXPECT_TRUE(true);
 	}
@@ -74,61 +76,55 @@ namespace PlaygroundUnitTests {
 
 	TEST(BinaryTree, ExceptionRemovingValueNotInTree) {
 		Tree::BinaryTree<int> tree;
-		EXPECT_THROW(tree.Remove(10), Tree::RemovingInvalidValueException);
+		EXPECT_THROW(tree.Remove(10), Tree::ExceptionRemovingInvalidTreeNode);
+	}
+
+	void SetupTreeForVisits(Tree::BinaryTree<char>& tree) {
+		tree.Insert('a');
+		tree.Insert('b');
+		tree.Insert('c');
+		tree.Insert('d');
+		tree.Insert('e');
+		tree.Insert('f');
+		tree.Remove('c');
+		tree.Insert('g');
+		tree.Remove('g');
+
+		/* Final result should look like:
+					 a
+				  b     f
+				d  e
+		*/
 	}
 
 	TEST(BinaryTree, InOrderVisitLetters) {
 		Tree::BinaryTree<char> tree;
-
-		tree.Insert('a');
-		tree.Insert('b');
-		tree.Insert('c');
-		tree.Insert('d');
-		tree.Insert('e');
-		tree.Insert('f');
-		tree.Insert('g');
-
+		SetupTreeForVisits(tree);
 		std::string letters = "";
 		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
 		tree.VisitInOrder(build_string);
 
-		EXPECT_EQ(letters, "dbeafcg");
+		EXPECT_EQ(letters, "dbeaf");
 	}
 
 	TEST(BinaryTree, PreOrderVisitLetters) {
 		Tree::BinaryTree<char> tree;
-
-		tree.Insert('a');
-		tree.Insert('b');
-		tree.Insert('c');
-		tree.Insert('d');
-		tree.Insert('e');
-		tree.Insert('f');
-		tree.Insert('g');
-
+		SetupTreeForVisits(tree);
 		std::string letters = "";
 		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
 		tree.VisitPreOrder(build_string);
 
-		EXPECT_EQ(letters, "abdecfg");
+		EXPECT_EQ(letters, "abdef");
 	}
 
 	TEST(BinaryTree, PostOrderVisitLetters) {
 		Tree::BinaryTree<char> tree;
-
-		tree.Insert('a');
-		tree.Insert('b');
-		tree.Insert('c');
-		tree.Insert('d');
-		tree.Insert('e');
-		tree.Insert('f');
-		tree.Insert('g');
-
+		SetupTreeForVisits(tree);
 		std::string letters = "";
 		auto build_string = [&](Tree::TreeNode<char>* node) { letters += node->Data(); };
 		tree.VisitPostOrder(build_string);
 
-		EXPECT_EQ(letters, "debfgca");
+		EXPECT_EQ(letters, "debfa");
 	}
 
 	TEST(BinaryTree, RValueReferenceInVisit) {

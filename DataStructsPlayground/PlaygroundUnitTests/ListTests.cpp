@@ -11,6 +11,7 @@ namespace PlaygroundUnitTests {
 			list.AppendBack(3);
 			list.AppendBack(4);
 			list.AppendBack(5);
+			auto x = list.PopFront();
 		}
 		EXPECT_TRUE(true);
 	}
