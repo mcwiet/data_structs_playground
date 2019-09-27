@@ -3,7 +3,7 @@
 #include "TreeNode.h"
 #include <queue>
 #include <exception>
-#include <functional>
+#include <utility>
 
 // Note: Class is written to assume that the tree will always be a complete tree.
 
@@ -83,17 +83,17 @@ namespace Tree {
 
 		template<typename Func, typename... Args>
 		void VisitInOrder(Func&& visit_func, Args&& ... args) {
-			VisitInOrderHelper(root_, visit_func, args...);
+			VisitInOrderHelper(root_, std::forward<Func>(visit_func), std::forward<Args>(args)...);
 		}
 
 		template<typename Func, typename... Args>
 		void VisitPreOrder(Func&& visit_func, Args&& ... args) {
-			VisitPreOrderHelper(root_, visit_func, args...);
+			VisitPreOrderHelper(root_, std::forward<Func>(visit_func), std::forward<Args>(args)...);
 		}
 
 		template<typename Func, typename... Args>
 		void VisitPostOrder(Func&& visit_func, Args&& ... args) {
-			VisitPostOrderHelper(root_, visit_func, args...);
+			VisitPostOrderHelper(root_, std::forward<Func>(visit_func), std::forward<Args>(args)...);
 		}
 
 	private:
@@ -102,9 +102,9 @@ namespace Tree {
 			if (node == nullptr)
 				return;
 
-			VisitInOrderHelper(node->Left(), func, args...);
+			VisitInOrderHelper(node->Left(), std::forward<Func>(func), std::forward<Args>(args)...);
 			func(node, args...);
-			VisitInOrderHelper(node->Right(), func, args...);
+			VisitInOrderHelper(node->Right(), std::forward<Func>(func), std::forward<Args>(args)...);
 		}
 
 		template<typename Func, typename... Args>
@@ -113,8 +113,8 @@ namespace Tree {
 				return;
 
 			func(node, args...);
-			VisitPreOrderHelper(node->Left(), func, args...);
-			VisitPreOrderHelper(node->Right(), func, args...);
+			VisitPreOrderHelper(node->Left(), std::forward<Func>(func), std::forward<Args>(args)...);
+			VisitPreOrderHelper(node->Right(), std::forward<Func>(func), std::forward<Args>(args)...);
 		}
 
 		template<typename Func, typename... Args>
@@ -122,8 +122,8 @@ namespace Tree {
 			if (node == nullptr)
 				return;
 
-			VisitPostOrderHelper(node->Left(), func, args...);
-			VisitPostOrderHelper(node->Right(), func, args...);
+			VisitPostOrderHelper(node->Left(), std::forward<Func>(func), std::forward<Args>(args)...);
+			VisitPostOrderHelper(node->Right(), std::forward<Func>(func), std::forward<Args>(args)...);
 			func(node, args...);
 		}
 
