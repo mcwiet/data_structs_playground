@@ -18,9 +18,12 @@ namespace Tree {
 		virtual ~BinarySearchTree() {
 			std::queue<TreeNode<T>*> nodes;
 			nodes.push(root_);
-			while (nodes.front() != nullptr) {
+			while (!nodes.empty()) {
 				auto node = nodes.front();
 				nodes.pop();
+				if (node == nullptr) {
+					continue;
+				}
 				nodes.push(node->Left());
 				nodes.push(node->Right());
 				delete node;
