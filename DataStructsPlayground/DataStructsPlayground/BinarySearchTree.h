@@ -6,6 +6,9 @@
 // For now, just copying and re-writing functionality as necessary from the
 // BinaryTree class. Obviously more OO ways of doing it, but not my main concern here :)
 
+// Also, our BST will follow the rule that no duplicates are allowed but will does not
+// have to be a complete tree.
+
 namespace Tree {
 	class RemovingInvalidValueException : public std::exception {};
 
@@ -25,7 +28,21 @@ namespace Tree {
 		}
 
 		inline void Insert(const T& data) {
-			return;
+			TreeNode<T>** current = &root_;
+			while (*current != nullptr) {
+				if (data < (*current)->Data()) {
+					current = (*current)->LeftAddr();
+				}
+				else if (data > (*current)->Data()) {
+					current = (*current)->RightAddr();
+				}
+				else {
+					break;
+				}
+			}
+			if (*current == nullptr) {
+				*current = new TreeNode<T>(data);
+			}
 		};
 
 		inline void Remove(const T& data) {
