@@ -36,6 +36,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BinarySearchTreeTests.cpp" />
     <ClCompile Include="BinaryTreeTests.cpp" />
     <ClCompile Include="DoubleListNodeTests.cpp" />
     <ClCompile Include="ListNodeTests.cpp" />

@@ -1,18 +1,18 @@
 #pragma once
-
 #include "TreeNode.h"
-#include <queue>
 #include <exception>
+#include <queue>
 
-// Note: Class is written to assume that the tree will always be a complete tree.
+// For now, just copying and re-writing functionality as necessary from the
+// BinaryTree class. Obviously more OO ways of doing it, but not my main concern here :)
 
 namespace Tree {
 	class RemovingInvalidValueException : public std::exception {};
 
 	template <typename T>
-	class BinaryTree {
+	class BinarySearchTree {
 	public:
-		virtual ~BinaryTree() {
+		virtual ~BinarySearchTree() {
 			std::queue<TreeNode<T>*> nodes;
 			nodes.push(root_);
 			while (nodes.front() != nullptr) {
@@ -25,57 +25,15 @@ namespace Tree {
 		}
 
 		inline void Insert(const T& data) {
-			std::queue<TreeNode<T>**> nodes;
-			nodes.push(&root_);
-			while (*nodes.front() != nullptr) {
-				auto current = nodes.front();
-				nodes.pop();
-				nodes.push((*current)->LeftAddr());
-				nodes.push((*current)->RightAddr());
-			}
-			*nodes.front() = new TreeNode<T>(data);
+			return;
 		};
 
 		inline void Remove(const T& data) {
-			TreeNode<T>** target = nullptr;
-			TreeNode<T>** current = nullptr;
-			std::queue<TreeNode<T>**> nodes;
-			nodes.push(&root_);
-			while (*nodes.front() != nullptr) {
-				current = nodes.front();
-				nodes.pop();
-				nodes.push((*current)->LeftAddr());
-				nodes.push((*current)->RightAddr());
-				if ((*current)->Data() == data) {
-					target = current;
-				}
-			}
-			if (target != nullptr) {
-				std::swap(*target, *current);
-				delete (*current);
-				*current = nullptr;
-			}
-			else {
-				throw RemovingInvalidValueException();
-			}
+			return;
 		};
 
 		inline bool Find(const T& data) {
-			bool found = false;
-			std::queue<TreeNode<T>*> nodes;
-			nodes.push(root_);
-			while (nodes.front() != nullptr) {
-				auto current = nodes.front();
-				nodes.pop();
-				if (current->Data() == data) {
-					found = true;
-					break;
-				}
-				nodes.push(current->Left());
-				nodes.push(current->Right());
-			}
-
-			return found;
+			return false;
 		}
 
 		inline bool IsEmpty() { return root_ == nullptr; }

@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "BinaryTree.h"
+#include "BinarySearchTree.h"
 
-namespace PlaygroundUnitTests {
-	TEST(BinaryTree, DISABLED_MemoryLeakCheck) {
+namespace BinarySearchTree {
+	TEST(BinarySearchTree, DISABLED_MemoryLeakCheck) {
 		for (int i = 0; i < 10000; ++i) {
-			Tree::BinaryTree<int> tree;
+			Tree::BinarySearchTree<int> tree;
 			tree.Insert(10);
 			tree.Insert(5);
 			tree.Insert(-6);
@@ -14,48 +14,48 @@ namespace PlaygroundUnitTests {
 		EXPECT_TRUE(true);
 	}
 
-	TEST(BinaryTree, EmptyAfterConstruction) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, EmptyAfterConstruction) {
+		Tree::BinarySearchTree<int> tree;
 		EXPECT_TRUE(tree.IsEmpty());
 	}
 
-	TEST(BinaryTree, NotEmptyAfterInsert) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, NotEmptyAfterInsert) {
+		Tree::BinarySearchTree<int> tree;
 		tree.Insert(10);
 		EXPECT_FALSE(tree.IsEmpty());
 	}
 
-	TEST(BinaryTree, FindInEmptyTree) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, FindInEmptyTree) {
+		Tree::BinarySearchTree<int> tree;
 		EXPECT_FALSE(tree.Find(10));
 	}
 
-	TEST(BinaryTree, SuccessfulFind) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, SuccessfulFind) {
+		Tree::BinarySearchTree<int> tree;
 		tree.Insert(10);
 		tree.Insert(5);
 		tree.Insert(-6);
 		EXPECT_TRUE(tree.Find(5));
 	}
 
-	TEST(BinaryTree, UnsuccessfulFind) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, UnsuccessfulFind) {
+		Tree::BinarySearchTree<int> tree;
 		tree.Insert(10);
 		tree.Insert(5);
 		tree.Insert(-6);
 		EXPECT_FALSE(tree.Find(-20));
 	}
 
-	TEST(BinaryTree, UnsuccessfulFindAfterRemovalSingleNodeTree) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, UnsuccessfulFindAfterRemovalSingleNodeTree) {
+		Tree::BinarySearchTree<int> tree;
 		tree.Insert(10);
 		EXPECT_TRUE(tree.Find(10));
 		tree.Remove(10);
 		EXPECT_FALSE(tree.Find(10));
 	}
 
-	TEST(BinaryTree, UnsuccessfulFindAfterRemovalMultiNodeTree) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, UnsuccessfulFindAfterRemovalMultiNodeTree) {
+		Tree::BinarySearchTree<int> tree;
 		tree.Insert(10);
 		tree.Insert(25);
 		tree.Insert(-5);
@@ -66,19 +66,19 @@ namespace PlaygroundUnitTests {
 		EXPECT_FALSE(tree.Find(7657));
 	}
 
-	TEST(BinaryTree, NoExceptionRemovingValueInTree) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, NoExceptionRemovingValueInTree) {
+		Tree::BinarySearchTree<int> tree;
 		tree.Insert(10);
 		EXPECT_NO_THROW(tree.Remove(10));
 	}
 
-	TEST(BinaryTree, ExceptionRemovingValueNotInTree) {
-		Tree::BinaryTree<int> tree;
+	TEST(BinarySearchTree, ExceptionRemovingValueNotInTree) {
+		Tree::BinarySearchTree<int> tree;
 		EXPECT_THROW(tree.Remove(10), Tree::RemovingInvalidValueException);
 	}
 
-	TEST(BinaryTree, InOrderVisitLetters) {
-		Tree::BinaryTree<char> tree;
+	TEST(BinarySearchTree, InOrderVisitLetters) {
+		Tree::BinarySearchTree<char> tree;
 
 		tree.Insert('a');
 		tree.Insert('b');
@@ -95,8 +95,8 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(letters, "dbeafcg");
 	}
 
-	TEST(BinaryTree, PreOrderVisitLetters) {
-		Tree::BinaryTree<char> tree;
+	TEST(BinarySearchTree, PreOrderVisitLetters) {
+		Tree::BinarySearchTree<char> tree;
 
 		tree.Insert('a');
 		tree.Insert('b');
@@ -113,8 +113,8 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(letters, "abdecfg");
 	}
 
-	TEST(BinaryTree, PostOrderVisitLetters) {
-		Tree::BinaryTree<char> tree;
+	TEST(BinarySearchTree, PostOrderVisitLetters) {
+		Tree::BinarySearchTree<char> tree;
 
 		tree.Insert('a');
 		tree.Insert('b');
@@ -131,8 +131,8 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(letters, "debfgca");
 	}
 
-	TEST(BinaryTree, RValueReferenceInVisit) {
-		Tree::BinaryTree<char> tree;
+	TEST(BinarySearchTree, RValueReferenceInVisit) {
+		Tree::BinarySearchTree<char> tree;
 
 		tree.Insert('a');
 		tree.Insert('b');
@@ -151,9 +151,9 @@ namespace PlaygroundUnitTests {
 		EXPECT_EQ(letters, "vvvvvvv");
 	}
 
-	TEST(BinaryTree, MutableLambdaInVisit) {
+	TEST(BinarySearchTree, MutableLambdaInVisit) {
 		// This test is super contrived and is just here to prove that, if needed, you could use a mutable lambda
-		Tree::BinaryTree<char> tree;
+		Tree::BinarySearchTree<char> tree;
 
 		tree.Insert('a');
 		tree.Insert('b');
