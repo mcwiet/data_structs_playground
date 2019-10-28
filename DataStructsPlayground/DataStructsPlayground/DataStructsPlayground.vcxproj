@@ -135,12 +135,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
+    <ClInclude Include="DirectedWeightedAcyclicGraph.h" />
     <ClInclude Include="DoubleListNode.h" />
     <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="Edge.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="ListNode.h" />
     <ClInclude Include="ExceptionRemovingInvalidTreeNode.h" />
+    <ClInclude Include="StartVertex.h" />
     <ClInclude Include="TreeNode.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

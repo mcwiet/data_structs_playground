@@ -11,6 +11,9 @@
     <Filter Include="Source Files\Tree">
       <UniqueIdentifier>{bb777dae-09d2-4f20-8d14-711b9c789733}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Graph">
+      <UniqueIdentifier>{2a5e739e-2530-423d-b6d1-8af299c98b33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DoubleListNode.h">
@@ -33,6 +36,18 @@
     </ClInclude>
     <ClInclude Include="ExceptionRemovingInvalidTreeNode.h">
       <Filter>Source Files\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="StartVertex.h">
+      <Filter>Source Files\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Source Files\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>Source Files\Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectedWeightedAcyclicGraph.h">
+      <Filter>Source Files\Graph</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
